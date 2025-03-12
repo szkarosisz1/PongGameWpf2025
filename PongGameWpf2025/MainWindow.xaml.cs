@@ -28,12 +28,12 @@ namespace PongGameWpf2025
             Close();
         }
 
-        private void Btn1v2_Click(object sender, RoutedEventArgs e)
+       /* private void Btn1v2_Click(object sender, RoutedEventArgs e)
         {
             _1v2Window _1V2Window = new _1v2Window();
             _1V2Window.Show();
             Close();
-        }
+        }*/
 
         private void BtnOnline_Click(object sender, RoutedEventArgs e)
         {
