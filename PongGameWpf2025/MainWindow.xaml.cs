@@ -20,5 +20,38 @@ namespace PongGameWpf2025
         {
             InitializeComponent();
         }
+
+        private void Btn1v1_Click(object sender, RoutedEventArgs e)
+        {
+            _1v1Window _1V1Window = new _1v1Window();
+            _1V1Window.Show();
+            Close();
+        }
+
+        private void Btn1v2_Click(object sender, RoutedEventArgs e)
+        {
+            _1v2Window _1V2Window = new _1v2Window();
+            _1V2Window.Show();
+            Close();
+        }
+
+        private void BtnOnline_Click(object sender, RoutedEventArgs e)
+        {
+            OnlineWindow onlineWindow = new OnlineWindow();
+            onlineWindow.Show();
+            Close();
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
+            Close();
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
