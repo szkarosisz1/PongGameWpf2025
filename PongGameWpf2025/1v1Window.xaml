@@ -1,12 +1,12 @@
-﻿<Window x:Class="PongGame._1v1Window"
+﻿<Window x:Class="PongGameWpf2025._1v1Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025"
         mc:Ignorable="d"
-        KeyUp="MainWindow_KeyUp"
-        KeyDown="MainWindow_KeyDown"
+        KeyUp="_1v1Window_KeyUp"
+        KeyDown="_1v1Window_KeyDown"
         Title="Pong Game" Height="650" Width="850" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
