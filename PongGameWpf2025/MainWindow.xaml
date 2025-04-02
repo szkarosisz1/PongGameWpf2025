@@ -31,14 +31,6 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button Content="Beállítások" Click="BtnSettings_Click" Width="200" Height="50" FontSize="18" Margin="10">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="#FFD86929" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
             <Button Content="Kilépés" Click="BtnExit_Click" Width="200" Height="50" FontSize="18" Margin="10">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
