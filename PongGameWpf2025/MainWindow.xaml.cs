@@ -42,12 +42,7 @@ namespace PongGameWpf2025
             Close();
         }
 
-        private void BtnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow settingsWindow = new SettingsWindow();
-            settingsWindow.Show();
-            Close();
-        }
+      
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
