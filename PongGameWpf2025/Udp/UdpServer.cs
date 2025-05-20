@@ -83,13 +83,11 @@ namespace PongGameWpf2025.Udp
                 }
                 catch (ObjectDisposedException)
                 {
-                    // socket bezárva, szépen kilépünk
                     Debug.WriteLine("[UdpServer] A socket le lett zárva, kilépünk a hallgatásból.");
                     break;
                 }
                 catch (SocketException ex) when (ex.SocketErrorCode == SocketError.Interrupted)
                 {
-                    // I/O megszakítva: ez akkor jön, ha bezártuk a socketet
                     Debug.WriteLine("[UdpServer] I/O művelet megszakítva, bezárás miatt kilépünk.");
                     break;
                 }
@@ -99,7 +97,6 @@ namespace PongGameWpf2025.Udp
                 }
             }
 
-            // A ciklus után zárjuk le a socketet (itt biztonságos)
             udpListener?.Close();
         }
 
@@ -107,8 +104,6 @@ namespace PongGameWpf2025.Udp
         public void Stop()
         {
             listening = false;
-            // Ne zárd itt a udpListener-t! Csak jelzed, hogy álljon le.
-            // udpListener?.Close(); // ezt vedd ki innen, mert ezzel megszakítod a fogadást
         }
 
     }
