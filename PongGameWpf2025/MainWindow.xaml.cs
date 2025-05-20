@@ -1,19 +1,8 @@
-﻿using System.Text;
+﻿using PongGameWpf2025.Game_Online.Game_Window_Online;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PongGameWpf2025
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -21,30 +10,21 @@ namespace PongGameWpf2025
             InitializeComponent();
         }
 
-        private void Btn1v1_Click(object sender, RoutedEventArgs e)
+        void Btn1v1_Click(object sender, RoutedEventArgs e)
         {
             _1v1Window _1V1Window = new _1v1Window();
             _1V1Window.Show();
             Close();
         }
-
-       /* private void Btn1v2_Click(object sender, RoutedEventArgs e)
+  
+        void BtnOnline_Click(object sender, RoutedEventArgs e)
         {
-            _1v2Window _1V2Window = new _1v2Window();
-            _1V2Window.Show();
-            Close();
-        }*/
-
-        private void BtnOnline_Click(object sender, RoutedEventArgs e)
-        {
-            OnlineWindow onlineWindow = new OnlineWindow();
+            OnlineGameWindow onlineWindow = new OnlineGameWindow();
             onlineWindow.Show();
             Close();
         }
 
-      
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
