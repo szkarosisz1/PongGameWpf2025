@@ -12,12 +12,4 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Game-Online\Create-Server\" />
-    <Folder Include="Game-Online\Game-Window-Online\" />
-    <Folder Include="Game-Online\Name-Input-Online\" />
-    <Folder Include="Game-Online\Lobby\" />
-    <Folder Include="Game-Online\Server-Input\" />
-  </ItemGroup>
-
 </Project>

@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PongGameWpf2025
+namespace PongGameWpf2025.Game_Online.Game_Window_Online
 {
     /// <summary>
-    /// Interaction logic for OnlineWindow.xaml
+    /// Interaction logic for OnlineGameWindow.xaml
     /// </summary>
-    public partial class OnlineWindow : Window
+    public partial class OnlineGameWindow : Window
     {
-        public OnlineWindow()
+        public OnlineGameWindow()
         {
             InitializeComponent();
         }
