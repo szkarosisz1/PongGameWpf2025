@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025.Game_Online.Create_Server"
         mc:Ignorable="d"
-        Title="CreateServerWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Szerver indítása" Height="200" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Szerver indítása..." FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock x:Name="StatusTextBlock" Text="Várakozás..." FontSize="14"/>
+        </StackPanel>
     </Grid>
 </Window>
