@@ -4,9 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025"
-        mc:Ignorable="d"
-        Title="Lobby" Height="450" Width="800">
-    <Grid>
-        
+        Title="Online Lobby" Height="400" Width="600"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Online Lobby" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Játékosok:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
+            <ListBox x:Name="PlayersListBox" Height="150" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button x:Name="StartGameButton" Content="Játék indítása" Width="150" Height="40" Click="StartGameButton_Click"/>
+            </StackPanel>
+
+            <TextBlock x:Name="StatusTextBlock" FontSize="14" Foreground="Gray" Margin="0,20,0,0" TextAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -14,14 +14,30 @@ using System.Windows.Shapes;
 
 namespace PongGameWpf2025.Game_Online.Server_Input
 {
-    /// <summary>
-    /// Interaction logic for ServerInputWindow.xaml
-    /// </summary>
     public partial class ServerInputWindow : Window
     {
         public ServerInputWindow()
         {
             InitializeComponent();
+        }
+
+        void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var parts = ServerNameTextBox.Text.Split(':');
+                string ip = parts[0];
+                int port = int.Parse(parts[1]);
+
+                // Kliensként lép be
+                OnlineLobbyWindow onlineWindow = new OnlineLobbyWindow(false, ip, port, null);
+                onlineWindow.Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hibás IP-cím vagy port formátum.\n" + ex.Message);
+            }
         }
     }
 }

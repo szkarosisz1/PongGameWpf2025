@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025.Game_Online.Server_Input"
         mc:Ignorable="d"
-        Title="ServerInputWindow" Height="450" Width="800">
+        Title="Szerver csatlakozás" Height="500" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF460707" Offset="0.883"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Kérem a szerver IP-címét és portját!" FontSize="30" FontWeight="Bold" Margin="10" TextAlignment="Center" Foreground="#FFD86929"/>
+            <TextBox x:Name="ServerNameTextBox" Width="500" Height="35" Margin="10" FontSize="20" FontWeight="Bold" TextAlignment="Center" Text="127.0.0.1:55555"/>
+            <Button Content="OK" Click="ConnectButton_Click" FontSize="20" Width="500" Height="40" Margin="10" FontWeight="Bold" Background="#FFD86929"/>
+        </StackPanel>
     </Grid>
 </Window>
