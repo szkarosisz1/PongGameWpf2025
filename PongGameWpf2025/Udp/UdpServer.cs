@@ -9,17 +9,18 @@ using System.Diagnostics;
 
 namespace PongGameWpf2025.Udp
 {
-    internal class UdpServer
+    public class UdpServer
     {
         UdpClient udpListener;
         int port;
         bool listening;
 
-        private List<string> connectedClients = new();
+        Dictionary<IPEndPoint, string> connectedClients = new();
 
         public event EventHandler<string> ClientConnected;
         public event EventHandler AllClientsDisconnected;
         public event EventHandler<(string message, IPEndPoint senderEP)> MessageReceived;
+        public event EventHandler<string> ClientMovementReceived;
 
         public int Port => port;
 
@@ -44,31 +45,41 @@ namespace PongGameWpf2025.Udp
                 {
                     var result = await udpListener.ReceiveAsync();
                     string msg = Encoding.UTF8.GetString(result.Buffer);
+                    var senderEP = result.RemoteEndPoint;
 
                     Debug.WriteLine($"[UdpServer] Üzenet érkezett: {msg}");
 
                     if (msg.StartsWith("NAME: "))
                     {
                         string clientName = msg.Substring(6);
-                        if (!connectedClients.Contains(clientName))
+
+                        if (!connectedClients.ContainsKey(senderEP))
                         {
-                            connectedClients.Add(clientName);
-                            Debug.WriteLine($"[UdpServer] Új kliens regisztrálva: {clientName}");
+                            connectedClients[senderEP] = clientName;
                             ClientConnected?.Invoke(this, clientName);
                         }
+
+                        // Válasz a regisztrációra
+                        await udpListener.SendAsync(Encoding.UTF8.GetBytes("ACK"), senderEP);
                     }
                     else if (msg.StartsWith("LEFT|"))
                     {
                         string clientName = msg.Substring(5);
-                        if (connectedClients.Contains(clientName))
+
+                        var clientToRemove = connectedClients.FirstOrDefault(pair => pair.Value == clientName).Key;
+
+                        if (!clientToRemove.Equals(default(IPEndPoint)))
                         {
-                            connectedClients.Remove(clientName);
+                            connectedClients.Remove(clientToRemove);
                             Debug.WriteLine($"[UdpServer] Kliens kilépett: {clientName} - {DateTime.Now:yyyy.MM.dd HH:mm:ss}");
                         }
                         else
                         {
                             Debug.WriteLine($"[UdpServer] Kilépési üzenet érkezett ismeretlen kliensről: {clientName}");
                         }
+
+                        // Válasz a kilépésre
+                        await udpListener.SendAsync(Encoding.UTF8.GetBytes("BYE"), senderEP);
 
                         if (connectedClients.Count == 0)
                         {
@@ -77,9 +88,22 @@ namespace PongGameWpf2025.Udp
                             AllClientsDisconnected?.Invoke(this, EventArgs.Empty);
                         }
                     }
+                    else
+                    {
+                        ClientMovementReceived?.Invoke(this, msg);
 
+                        // Forward the message to all other clients
+                        foreach (var clientEP in connectedClients.Keys)
+                        {
+                            if (!clientEP.Equals(senderEP))
+                            {
+                                byte[] data = Encoding.UTF8.GetBytes(msg);
+                                await udpListener.SendAsync(data, data.Length, clientEP);
+                            }
+                        }
+                    }
 
-                    MessageReceived?.Invoke(this, (msg, result.RemoteEndPoint));
+                    MessageReceived?.Invoke(this, (msg, senderEP));
                 }
                 catch (ObjectDisposedException)
                 {
@@ -100,10 +124,18 @@ namespace PongGameWpf2025.Udp
             udpListener?.Close();
         }
 
-
         public void Stop()
         {
             listening = false;
+
+            try
+            {
+                udpListener?.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[UdpServer] Hiba a socket bezárásakor: {ex.Message}");
+            }
         }
 
     }

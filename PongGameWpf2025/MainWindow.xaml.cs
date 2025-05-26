@@ -1,5 +1,6 @@
 ﻿using PongGameWpf2025.Game_Online.Create_Server;
 using PongGameWpf2025.Game_Online.Game_Window_Online;
+using PongGameWpf2025.Game_Online.Server_Input;
 using System.Windows;
 
 namespace PongGameWpf2025
@@ -17,12 +18,11 @@ namespace PongGameWpf2025
             _1V1Window.Show();
             Close();
         }
-  
+
         void BtnOnline_Click(object sender, RoutedEventArgs e)
         {
-            OnlineGameWindow onlineWindow = new OnlineGameWindow();
-            onlineWindow.Show();
-            Close();
+            ServerInputWindow serverInputWindow = new ServerInputWindow();
+            serverInputWindow.ShowDialog();
         }
 
         void BtnCreateServer_Click(object sender, RoutedEventArgs e)

@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025.Game_Online.Game_Window_Online"
         mc:Ignorable="d"
-        Title="OnlineGameWindow" Height="450" Width="800">
+            KeyUp="MainWindow_KeyUp"
+    KeyDown="MainWindow_KeyDown"
+    Title="Online Pong Game" Height="650" Width="850" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF460707" Offset="0.883"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Height="230px">
+            <MenuItem Header="Szerver elhagyása" Height="30" Click="LeaveServerMenuItem_Click"/>
+        </Menu>
+        <Canvas Grid.Row="1" Width="850" Name="MainCanvas">
+            <Rectangle Height="80" Width="20" Fill="WhiteSmoke" Canvas.Top="{Binding YPosition}" Canvas.Left="0" Name="LeftPad"/>
+            <Rectangle Height="80" Width="20" Fill="WhiteSmoke" Canvas.Top="{Binding YPosition}" Canvas.Left="815" Name="RightPad"/>
+
+            <Line X1="425" X2="425" Y2="615" Y1="0" StrokeThickness="20" Stroke="WhiteSmoke" HorizontalAlignment="Left" VerticalAlignment="Center" Width="450">
+                <Line.StrokeDashArray>
+                    <DoubleCollection>1 1</DoubleCollection>
+                </Line.StrokeDashArray>
+            </Line>
+            <Rectangle Width="20" Height="20" Fill="WhiteSmoke" Stroke="Black" StrokeThickness="0.1" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Name="Ball" DataContext="{Binding Path=ball}"/>
+            <Label Canvas.Left="330" Content="{Binding LeftResult}" Height="auto" FontSize="120" FontWeight="Bold" FontFamily="OCR A Extended" Foreground="WhiteSmoke"/>
+            <Label Canvas.Left="438" Content="{Binding RightResult}" Height="auto" FontSize="120" FontWeight="Bold" FontFamily="OCR A Extended" Foreground="WhiteSmoke"/>
+            <Label x:Name="PauseLabel" Content="Játék megállítva! Nyomja meg a folytatáshoz a 'p' gombot!" FontSize="23" FontFamily="OCR A Extended" FontWeight="Bold" Foreground="WhiteSmoke" Visibility="Hidden"
+         HorizontalAlignment="Left" VerticalAlignment="Bottom" Canvas.Top="530"/>
+
+            <Label x:Name="PlayerOneNameLabel" Canvas.Left="20" Canvas.Top="20" Content="Player1" FontSize="20" FontWeight="Bold" Foreground="WhiteSmoke"/>
+            <Label x:Name="PlayerTwoNameLabel" Canvas.Left="600" Canvas.Top="20" Content="Player2" FontSize="20" FontWeight="Bold" Foreground="WhiteSmoke"/>
+        </Canvas>
     </Grid>
 </Window>
