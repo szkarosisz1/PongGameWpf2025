@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PongGameWpf2025"
         mc:Ignorable="d"
-        Title="MainWindow" Height="544" Width="821">
-    <Grid>
+        Title="Fomenu" Height="500" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,-6">
         <Grid.Background>
             <RadialGradientBrush>
                 <GradientStop Color="Black"/>
-                <GradientStop Color="#FF460707" Offset="1"/>
+                <GradientStop Color="#FF460707" Offset="0.883"/>
             </RadialGradientBrush>
         </Grid.Background>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Pong Game" FontSize="50" FontWeight="Bold" FontFamily="Consolas" HorizontalAlignment="Center" Margin="0,50,0,30" Foreground="#FFD86929"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="529">
+            <TextBlock Text="Pong Game" FontSize="50" FontWeight="Bold" FontFamily="Consolas" HorizontalAlignment="Center" Margin="0,50,0,30">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FFD86929" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
             <Button Content="1v1" Click="Btn1v1_Click" Width="200" Height="50" FontSize="18" Margin="10">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -24,6 +31,14 @@
                 </Button.Background>
             </Button>
             <Button Content="Online" Click="BtnOnline_Click" Width="200" Height="50" FontSize="18" Margin="10">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FFD86929" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Content="Szerver létrehozása" Click="BtnCreateServer_Click" Width="200" Height="50" FontSize="18" Margin="10">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>
