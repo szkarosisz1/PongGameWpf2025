@@ -113,7 +113,6 @@ namespace PongGameWpf2025
                     connectedClients[senderEP] = name;
                     Dispatcher.Invoke(() => AddPlayer(name));
 
-                    // ÚJ: küldd vissza a hoszt nevét a vendégnek
                     using (var client = new UdpClient())
                     {
                         byte[] serverNameMsg = Encoding.UTF8.GetBytes("NAME: " + playerName);
@@ -182,7 +181,6 @@ namespace PongGameWpf2025
                         {
                             Debug.WriteLine("Játék indítása (kliens oldalon)...");
 
-                            // Vendég ablak indítása csak itt, a START üzenetre
                             OnlineGameWindow guestGame = new OnlineGameWindow(serverPlayerName, playerName, udpClientHandler, server, false);
                             guestGame.Title = $"Online Pong Game - {playerName} (Guest)";
                             guestGame.Show();

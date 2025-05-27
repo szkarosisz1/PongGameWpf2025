@@ -29,7 +29,6 @@ namespace PongGameWpf2025.Game_Online.Server_Input
                 string ip = parts[0];
                 int port = int.Parse(parts[1]);
 
-                // Kliensként lép be
                 OnlineLobbyWindow onlineWindow = new OnlineLobbyWindow(false, ip, port, null);
                 onlineWindow.Show();
                 Close();

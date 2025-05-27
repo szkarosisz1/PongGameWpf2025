@@ -144,10 +144,10 @@ namespace PongGameWpf2025.Game_Online.Game_Window_Online
             {
                 if (_isHost)
                 {
-                    UpdateGameState(); // Csak a Host végzi el a játék logikát
+                    UpdateGameState();
                 }
 
-                RenderGame(); // Mindkét oldal frissíti a képernyőt
+                RenderGame();
             }
         }
 
@@ -189,7 +189,6 @@ namespace PongGameWpf2025.Game_Online.Game_Window_Online
                 CheckForWinner();
             }
 
-            // Küldés csak a Hostnál
             string ballMsg = $"BALL|{_ball.X:F1};{_ball.Y:F1};{_angle:F1};{_ball.MovingRight}";
             string leftPadMsg = $"PAD|LEFT;{_leftPad.YPosition}";
             string rightPadMsg = $"PAD|RIGHT;{_rightPad.YPosition}";

@@ -59,7 +59,6 @@ namespace PongGameWpf2025.Udp
                             ClientConnected?.Invoke(this, clientName);
                         }
 
-                        // Válasz a regisztrációra
                         await udpListener.SendAsync(Encoding.UTF8.GetBytes("ACK"), senderEP);
                     }
                     else if (msg.StartsWith("LEFT|"))
@@ -78,7 +77,6 @@ namespace PongGameWpf2025.Udp
                                 connectedClients.Remove(clientToRemove);
                                 Debug.WriteLine($"[UdpServer] {role} kilépett: {clientName} - {DateTime.Now:yyyy.MM.dd HH:mm:ss}");
 
-                                // Válasz a kilépésre
                                 await udpListener.SendAsync(Encoding.UTF8.GetBytes("BYE"), senderEP);
 
                                 if (role == "HOST")
