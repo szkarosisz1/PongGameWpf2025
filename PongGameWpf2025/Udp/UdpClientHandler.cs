@@ -50,7 +50,6 @@ namespace PongGameWpf2025.Udp
                     var result = await _client.ReceiveAsync();
                     string msg = Encoding.UTF8.GetString(result.Buffer);
 
-                    // Kiváltjuk az eseményt, amit a játékablak feliratkozik
                     MessageReceived?.Invoke(this, msg);
                 }
                 catch (ObjectDisposedException)
@@ -59,7 +58,6 @@ namespace PongGameWpf2025.Udp
                 }
                 catch (Exception ex)
                 {
-                    // Naplózhatod, ha szükséges
                     Console.WriteLine($"[UdpClientHandler] Hiba: {ex.Message}");
                 }
             }
