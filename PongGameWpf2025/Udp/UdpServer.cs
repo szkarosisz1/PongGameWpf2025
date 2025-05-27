@@ -64,35 +64,67 @@ namespace PongGameWpf2025.Udp
                     }
                     else if (msg.StartsWith("LEFT|"))
                     {
-                        string clientName = msg.Substring(5);
-
-                        var clientToRemove = connectedClients.FirstOrDefault(pair => pair.Value == clientName).Key;
-
-                        if (!clientToRemove.Equals(default(IPEndPoint)))
+                        var parts = msg.Split('|');
+                        if (parts.Length >= 3)
                         {
-                            connectedClients.Remove(clientToRemove);
-                            Debug.WriteLine($"[UdpServer] Kliens kilépett: {clientName} - {DateTime.Now:yyyy.MM.dd HH:mm:ss}");
+                            string clientName = parts[1];
+                            string role = parts[2].ToUpperInvariant();
+
+                            var clientPair = connectedClients.FirstOrDefault(pair => pair.Value == clientName);
+
+                            if (!clientPair.Equals(default(KeyValuePair<IPEndPoint, string>)))
+                            {
+                                var clientToRemove = clientPair.Key;
+                                connectedClients.Remove(clientToRemove);
+                                Debug.WriteLine($"[UdpServer] {role} kilépett: {clientName} - {DateTime.Now:yyyy.MM.dd HH:mm:ss}");
+
+                                // Válasz a kilépésre
+                                await udpListener.SendAsync(Encoding.UTF8.GetBytes("BYE"), senderEP);
+
+                                if (role == "HOST")
+                                {
+                                    Debug.WriteLine("[UdpServer] A Host kilépett, értesítem a vendégeket...");
+
+                                    byte[] hostLeftMsg = Encoding.UTF8.GetBytes("HOST_LEFT");
+                                    foreach (var ep in connectedClients.Keys)
+                                    {
+                                        await udpListener.SendAsync(hostLeftMsg, ep);
+                                    }
+
+                                    listening = false;
+                                    AllClientsDisconnected?.Invoke(this, EventArgs.Empty);
+                                    return;
+                                }
+                                else if (role == "GUEST")
+                                {
+                                    byte[] guestLeftMsg = Encoding.UTF8.GetBytes($"GUEST_LEFT|{clientName}");
+                                    foreach (var ep in connectedClients.Keys)
+                                    {
+                                        await udpListener.SendAsync(guestLeftMsg, ep);
+                                    }
+                                }
+
+                                if (connectedClients.Count == 0)
+                                {
+                                    Debug.WriteLine("[UdpServer] Minden kliens kilépett, leállítom a szervert.");
+                                    listening = false;
+                                    AllClientsDisconnected?.Invoke(this, EventArgs.Empty);
+                                }
+                            }
+                            else
+                            {
+                                Debug.WriteLine($"[UdpServer] Kilépési üzenet érkezett ismeretlen kliensről: {clientName}");
+                            }
                         }
                         else
                         {
-                            Debug.WriteLine($"[UdpServer] Kilépési üzenet érkezett ismeretlen kliensről: {clientName}");
-                        }
-
-                        // Válasz a kilépésre
-                        await udpListener.SendAsync(Encoding.UTF8.GetBytes("BYE"), senderEP);
-
-                        if (connectedClients.Count == 0)
-                        {
-                            Debug.WriteLine("[UdpServer] Minden kliens kilépett, leállítom a szervert.");
-                            listening = false;
-                            AllClientsDisconnected?.Invoke(this, EventArgs.Empty);
+                            Debug.WriteLine("[UdpServer] Helytelen LEFT üzenet formátum");
                         }
                     }
                     else
                     {
                         ClientMovementReceived?.Invoke(this, msg);
 
-                        // Forward the message to all other clients
                         foreach (var clientEP in connectedClients.Keys)
                         {
                             if (!clientEP.Equals(senderEP))
@@ -137,6 +169,5 @@ namespace PongGameWpf2025.Udp
                 Debug.WriteLine($"[UdpServer] Hiba a socket bezárásakor: {ex.Message}");
             }
         }
-
     }
 }

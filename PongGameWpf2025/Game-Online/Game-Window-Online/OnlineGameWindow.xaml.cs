@@ -97,7 +97,7 @@ namespace PongGameWpf2025.Game_Online.Game_Window_Online
         {
             HandleIncomingMessage(msg);
         }
-        void LeaveServerMenuItem_Click(object sender, RoutedEventArgs e)
+        async void LeaveServerMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Biztosan elhagyja a szervert?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -105,12 +105,13 @@ namespace PongGameWpf2025.Game_Online.Game_Window_Online
             {
                 try
                 {
-
                     string playerNameToSend = !string.IsNullOrWhiteSpace(PlayerTwoName) ? PlayerTwoName : PlayerOneName;
+                    bool isHost = string.IsNullOrWhiteSpace(PlayerTwoName);
 
                     if (!string.IsNullOrWhiteSpace(playerNameToSend))
                     {
-                        _udpClientHandler?.SendMessageAsync("LEFT|" + playerNameToSend);
+                        string leaveMessage = isHost ? $"LEFT|{playerNameToSend}|HOST" : $"LEFT|{playerNameToSend}|GUEST";
+                        await _udpClientHandler?.SendMessageAsync(leaveMessage);
                     }
 
                     _udpClientHandler?.Close();
